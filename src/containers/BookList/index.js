@@ -1,7 +1,14 @@
 import React from 'react';
 import BookListItem from '../../components/BookListItem';
 
-export default ({ books }) => {
+export default ({ books, filter }) => {
+  if (filter) {
+    filter = new RegExp(filter, `i`);
+    books = books.filter(book => {
+      return book.title.match(filter);
+    });
+  }
+
   return (
     <div>
       <ol>

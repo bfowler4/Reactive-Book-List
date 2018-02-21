@@ -1,19 +1,14 @@
 import React from 'react';
 
-export default ({ getBooks, getBookById }) => {
+export default ({ filterBooks }) => {
   let filter = ``;
 
   function handleFilterChange(event) {
     filter = event.target.value;
-
-    if (filter) {
-      getBookById(parseInt(filter));
-    } else {
-      getBooks();
-    }
+    return filterBooks(filter);
   }
 
   return (
-    <input type='text' onChange={handleFilterChange}/>
+    <input type='text' onChange={handleFilterChange} placeholder='Search by title'/>
   );
 };
