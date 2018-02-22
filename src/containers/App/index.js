@@ -21,9 +21,7 @@ class App extends Component {
 
   componentWillMount() {
     getBooksFromFakeXHR()
-    .then(books => {
-      return this.setState({ books: books });
-    });
+    .then(books => this.setState({ books: books }));
   }
 
   filterBooks(filter) {

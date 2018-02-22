@@ -1,31 +1,37 @@
 import React from 'react';
 
 export default ({ addBook }) => {
-  let title = ``;
-  let author = ``;
+  let inputs = {
+    title: ``,
+    author: ``
+  }
   let newBookForm = document.getElementById(`new_book_form`);
 
-  function handleChangeTitle(event) {
-    title = event.target.value;
-  }
-
-  function handleChangeAuthor(event) {
-    author = event.target.value;
+  function handleChange(event) {
+    inputs[event.target.name] = event.target.value;
   }
 
   function handleSubmit(event) {
-    addBook({ title, author });
+    addBook(Object.assign({}, inputs));
     newBookForm.reset();
-    title = ``;
-    author = ``;
     event.preventDefault();
   }
 
   return (
     <form id='new_book_form' onSubmit={handleSubmit}>
-      <input type='text' onChange={handleChangeTitle} placeholder='Title' />
+      <input 
+        type='text' 
+        onChange={handleChange}
+        name='title'
+        placeholder='Title'
+      />
       <br />
-      <input type='text' onChange={handleChangeAuthor} placeholder='Author' />
+      <input 
+        type='text' 
+        onChange={handleChange} 
+        name='author'
+        placeholder='Author' 
+      />
       <br />
       <button type='submit'>Submit</button>
     </form>
