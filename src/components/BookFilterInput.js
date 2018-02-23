@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default ({ filterBooks }) => {
+export default ({ applyFilter }) => {
   let filter = ``;
 
   function handleFilterChange(event) {
     filter = event.target.value;
-    return filterBooks(filter);
+    return applyFilter(filter);
   }
 
   return (

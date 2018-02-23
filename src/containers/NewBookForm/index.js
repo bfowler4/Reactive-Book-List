@@ -1,11 +1,17 @@
 import React from 'react';
+import { addBookToFakeXHR } from '../../lib/books.db';
 
-export default ({ addBook }) => {
+export default ({ loadBooks }) => {
   let inputs = {
     title: ``,
     author: ``
   }
   let newBookForm = document.getElementById(`new_book_form`);
+
+  function addBook(book) {
+    addBookToFakeXHR(book)
+    .then(books => loadBooks(books));
+  }
 
   function handleChange(event) {
     inputs[event.target.name] = event.target.value;
