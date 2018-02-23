@@ -4,15 +4,13 @@ import BookListAppTitle from '../../components/BookListAppTitle';
 import BookFilterInput from '../../components/BookFilterInput';
 import BookListComponent from '../../containers/BookList';
 import NewBookForm from '../../containers/NewBookForm';
-import { getBooksFromFakeXHR } from '../../lib/books.db';
 
 import { connect } from 'react-redux';
 import { loadBooks, addBook, applyFilter } from '../../actions/booksActions';
 
 class App extends Component {
   componentWillMount() {
-    getBooksFromFakeXHR()
-    .then(books => this.props.loadBooks(books));
+    this.props.loadBooks();
   }
 
   render() {
@@ -21,7 +19,7 @@ class App extends Component {
         <BookListAppTitle title="Brandon's Book List App" />
         <BookFilterInput applyFilter={this.props.applyFilter}/>
         <BookListComponent books={this.props.books} filter={this.props.filter}/>
-        <NewBookForm loadBooks={this.props.loadBooks}/>
+        <NewBookForm addBook={this.props.addBook}/>
       </div>
     );
   }
@@ -34,10 +32,24 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = {
-  loadBooks,
-  addBook,
-  applyFilter
+const mapDispatchToProps = dispatch => {
+  return {
+    loadBooks: () => {
+      loadBooks()
+      .then(books => {
+        dispatch(books);
+      });
+    },
+    addBook: book => {
+      addBook(book)
+      .then(books => {
+        dispatch(books);
+      });
+    },
+    applyFilter: (filter) => {
+      dispatch(applyFilter(filter));
+    }
+  }
 }
 
 const ConnectedApp = connect(
